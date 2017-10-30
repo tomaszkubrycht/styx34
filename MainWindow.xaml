@@ -1,0 +1,244 @@
+﻿<Window x:Class="Styx.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="WSS Burst Detector - v. 1.0 Beta" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="692.941" d:DesignWidth="901.597" SizeToContent="Manual" HorizontalAlignment="Left" VerticalAlignment="Stretch" Name="mainWindow" Icon="/Styx;component/Icons/water.png" WindowStyle="ThreeDBorderWindow" DataContext="{Binding RelativeSource={RelativeSource Self}}" Closed="mainWindow_Closed" Closing="mainWindow_Closing">
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" CanExecute="CloseCanExecute" Executed="CloseExecuted"/>
+        <CommandBinding Command="Open" CanExecute="OpenCanExecute" Executed="OpenExecuted"/>
+        <CommandBinding Command="Help" CanExecute="HelpCanExecute" Executed="HelpExecuted"/>
+    </Window.CommandBindings>
+    <DockPanel Width="Auto" Height="Auto" LastChildFill="True">
+        <!--<StackPanel Name="buttonBar" Orientation="Horizontal" DockPanel.Dock="Right">
+            <StackPanel.LayoutTransform>
+                <RotateTransform Angle="90" />
+            </StackPanel.LayoutTransform>
+            <Button Name="pane1Button" MouseEnter="pane1Button_MouseEnter">Toolbox</Button>
+            <Button Name="pane2Button" MouseEnter="pane2Button_MouseEnter">Burst Detection</Button>
+        </StackPanel> 
+        -->
+        <StatusBar DockPanel.Dock="Bottom" RenderOptions.BitmapScalingMode="NearestNeighbor" Background="#FF9CAAC1">
+            <Label>Coordinates</Label>
+            <Label Name="statusBarCoordinateX"></Label>
+            <Label Name="statusBarCoordinateY"></Label>
+            <Separator></Separator>
+            <Label>Selected element</Label>
+            <Label Name="statusBarSelectedItem"></Label>
+        </StatusBar>
+        <StackPanel DockPanel.Dock="Top" Orientation="Vertical" Background="#FFBFC9D9" Name="menuPanel">
+            <Menu  Name="menu1" HorizontalAlignment="Left" Background="{Binding ElementName=menuPanel, Path=Background}">
+                <MenuItem Header="File" Background="{Binding ElementName=menuPanel, Path=Background}">
+                    <MenuItem Command="ApplicationCommands.Open" Background="{Binding ElementName=menuPanel, Path=Background}"/>
+                    <MenuItem Command="ApplicationCommands.Close" Background="{Binding ElementName=menuPanel, Path=Background}"/>
+                </MenuItem>
+                <MenuItem Header="Tools" Background="{Binding ElementName=menuPanel, Path=Background}">
+                    <MenuItem Header="Options" Background="{Binding ElementName=menuPanel, Path=Background}" Name="optionsMenuItem" Click="optionsMenuItem_Click" />
+                </MenuItem>
+                <MenuItem Header="Help" Background="{Binding ElementName=menuPanel, Path=Background}">
+                    <MenuItem Command="Help" Background="{Binding ElementName=menuPanel, Path=Background}"/>
+                    <!--<MenuItem Header="Methodology description" Name="instructionMenu" Click="instructionMenu_Click"> </MenuItem>-->
+                </MenuItem>
+            </Menu>
+            <ToolBarTray Background="#FF9CAAC1" AllowDrop="False">
+                <ToolBar RenderOptions.BitmapScalingMode="NearestNeighbor" Height="32" Background="#FF9CAAC1">
+                    <Button Command="ApplicationCommands.Open" ToolTip="Open inp file">
+                        <Image Source="/Styx;component/Icons/folder.png"/>
+                    </Button>
+                    <Button IsEnabled="False">
+                        <Image Source="/Styx;component/Icons/floppy-disk.png"/>
+                    </Button>
+                    <Button Name="printButton" Click="printButton_Click" ToolTip="Print">
+                        <Image Source="/Styx;component/Icons/printer.png"/>
+                    </Button>
+                    <Separator/>
+                    <!--<ToggleButton>-->
+
+                    <!--</ToggleButton>-->
+                    <ToggleButton Name="singleSelection" ToolTip="Select network element" Checked="singleSelection_Checked">
+                        <Image Source="/Styx;component/Icons/select_node.png"/>
+                    </ToggleButton>
+                    <ToggleButton Name="multipleSelection" ToolTip="Select multiple network elements" Checked="multipleSelection_Checked" IsEnabled="True">
+                        <Image Source="/Styx;component/Icons/multiple_selection.png"/>
+                    </ToggleButton>
+                    <Separator/>
+                    <!--<ToggleButton>
+                    
+                </ToggleButton>
+                <ToggleButton>
+                    
+                </ToggleButton>
+                <ToggleButton>
+                    
+                </ToggleButton>
+                <Separator/>-->
+                    <!--<Label>Zoom</Label>
+                <ComboBox IsEnabled="False">
+                   
+                </ComboBox>
+                <Separator/>-->
+                    <Button Name="zoomInButton" Click="zoomInButton_Click_1" ToolTip="Zoom in">
+                        <Image Source="/Styx;component/Icons/zoom_in2.png"/>
+                    </Button>
+                    <Button Name="fullExtentButton" ToolTip="Full extent" Click="fullExtentButton_Click">
+                        <Image Source="/Styx;component/Icons/extent.png" />
+                    </Button>
+                    <Button Name="zoomOutButton" Click="zoomOutButton_Click_1" ToolTip="Zoom out">
+                        <Image Source="/Styx;component/Icons/zoom_out2.png" />
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
+        </StackPanel>
+        <!-- The bar of buttons docked along the right edge: -->
+        <!-- The Grid containing the three child Grids fills the DockPanel: -->
+        <Grid Name="parentGrid" Grid.IsSharedSizeScope="True">
+            <Grid Name="layer0" SizeChanged="layer0_SizeChanged" UseLayoutRounding="True">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" MinWidth="100" />
+                    <ColumnDefinition Width="*" MinWidth="100"/>
+                    <ColumnDefinition Width="*" MinWidth="100"/>
+                </Grid.ColumnDefinitions>
+                <Grid Name="canvasGrid" ClipToBounds="True" SizeChanged="canvasGrid_SizeChanged">
+                    <Border x:Name="chartBorder" BorderBrush="Gray" BorderThickness="1" Margin="5,5,0,5">
+                        <ScrollViewer ClipToBounds="True" HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" Name="scrollViewerCanvas1" CanContentScroll="False">
+                            <Canvas HorizontalAlignment="Center" Name="canvas1" VerticalAlignment="Center" MouseLeftButtonDown="canvas1_MouseLeftButtonDown" Height="Auto" Width="Auto" Grid.ColumnSpan="1" MouseWheel="canvas1_MouseWheel" ClipToBounds="True" Background="White" MinWidth="100" MinHeight="100" MouseMove="canvas1_MouseMove" MouseLeftButtonUp="canvas1_MouseLeftButtonUp" MouseRightButtonDown="canvas1_MouseRightButtonDown" ContextMenuOpening="canvas1_ContextMenuOpening">
+
+                                <!--<Rectangle
+                                x:Name="selectionBox"
+                                Visibility="Collapsed"
+                                Stroke="Black"
+                                StrokeThickness="2"
+                                StrokeDashArray="2,1"/>-->
+
+                                <Canvas.ContextMenu>
+                                    <ContextMenu Name="canvas1ContextMenu">
+                                        <ContextMenu.PlacementTarget>
+                                            <UIElement />
+                                        </ContextMenu.PlacementTarget>
+                                        <MenuItem Header="Show paths" IsEnabled="False" Name="showPathsContextMenu" Click="showPathsContextMenu_Click"></MenuItem>
+                                        <MenuItem Header="Select paths' nodes" Name="selectPathsNodesContextMenu" Click="selectPathsNodesContextMenu_Click" IsEnabled="False"></MenuItem>
+                                        <MenuItem Header="Select element">
+                                            <ComboBox Name="selectItemComboBox" Loaded="selectItemComboBox_Loaded" SelectionChanged="selectItemComboBox_SelectionChanged">
+
+                                            </ComboBox>
+                                        </MenuItem>
+                                        <MenuItem Header="Select all nodes" Name="selectAllNodesContextMenu" Click="selectAllNodesContextMenu_Click"></MenuItem>
+                                        <MenuItem Header="Unselect all" Name="unselectAllContextMenu" Click="unselectAllContextMenu_Click"></MenuItem>
+                                        <!--<MenuItem Command="Paste"></MenuItem>-->
+                                    </ContextMenu>
+                                    <!--<ContextMenu />-->
+                                </Canvas.ContextMenu>
+                            </Canvas>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
+                <Grid Grid.Column="1" Background="#FF9CAAC1" Name="gridToolbox">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="2*" />
+                    </Grid.RowDefinitions>
+                    <Label  Grid.Row="0" Grid.Column="0" Background="CornflowerBlue" Foreground="White"
+                            HorizontalContentAlignment="Center">Toolbox</Label>
+                    <Button Content="Logger Location Tool" Grid.Row="1" Height="26" HorizontalAlignment="Center" Margin="7,5,5,5" Name="button_LoggerLocTool" VerticalAlignment="Top" Width="147" Click="button3_LoggerLocToolClick" ToolTip="Launch tool to plan placement of loggers" IsEnabled="False" Style="{StaticResource RoundedButton}" Background="#FF933737" BorderBrush="#FFC54743" Foreground="White" FontWeight="Bold" />
+                    <GroupBox Grid.Row="2" Header="Labels" BorderBrush="#FF293955">
+                        <StackPanel>
+                            <CheckBox Content="Node labels" HorizontalAlignment="Left" Margin="5" Name="nodesLabelsVisibility" Width="Auto" Checked="nodesLabelsVisibility_Checked" Unchecked="nodesLabelsVisibility_Unchecked" VerticalAlignment="Stretch" IsEnabled="False" />
+                            <CheckBox Content="Link labels" HorizontalAlignment="Left" Margin="5" Name="linksLabelsVisibility" VerticalAlignment="Stretch" Width="Auto" Grid.Row="2" Checked="linksLabelsVisibility_Checked" Unchecked="linksLabelsVisibility_Unchecked" IsEnabled="False" />
+                            <CheckBox Content="Show water network" HorizontalAlignment="Left" Margin="5" Name="mainNetworkVisibility" VerticalAlignment="Stretch" Width="Auto" Grid.Row="2" Unchecked="mainNetworkVisibility_Unchecked" Checked="mainNetworkVisibility_Checked" IsEnabled="False" />
+                        </StackPanel>
+                    </GroupBox>
+                    <GridSplitter Width="Auto" Grid.Row="2" VerticalAlignment="Bottom" Height="5" HorizontalAlignment="Stretch" ResizeDirection="Rows" />
+                    <xctk:PropertyGrid Grid.Row="3" Name="propertyGridForElement" AutoGenerateProperties="True" VerticalAlignment="Stretch" Background="#FF9CAAC1" IsEnabled="False">
+
+                    </xctk:PropertyGrid>
+                </Grid>
+                <GridSplitter Width="4" Grid.Column="1" HorizontalAlignment="Left" />
+                <Grid Grid.Column="2" Grid.RowSpan="3" Background="#FF9CAAC1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="0.9*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="1.1*"/>
+                    </Grid.RowDefinitions>
+                    <!-- Row 0 contains a header,
+                    and rows 1 & 2 contain pane-specific content: -->
+                    <!--<DockPanel Grid.Row="0" Name="pane2">
+                        <Button Name="pane2Pin" Width="26" DockPanel.Dock="Right" Background="White">                            
+                        </Button>
+                        <TextBlock Padding="8" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource 
+                        {x:Static SystemColors.ActiveCaptionTextBrushKey}}" DockPanel.Dock="Left">Burst Detection</TextBlock>
+                    </DockPanel>-->
+                    <Label  Grid.Row="0" Grid.Column="0" Background="BlueViolet" Foreground="White"
+                            HorizontalContentAlignment="Center">Burst detection</Label>
+                    <GroupBox Grid.Row="1" Grid.Column="0" 
+                              Header="E-Favor" BorderBrush="#FF293955" Background="{x:Null}">
+                        <StackPanel>
+                            <Button Content="Load E-Favor Data" Height="26" HorizontalAlignment="Center" Margin="5" Name="Button_loadEfavor" VerticalAlignment="Top" Width="120" ToolTip="Load pressure stepping experiment (E-Favor) data from Excel file" IsEnabled="False" Click="Button_loadEfavor_Click" Style="{StaticResource RoundedButton}" Background="#FF933737" BorderBrush="#FFC54743" Foreground="White" FontWeight="Bold" />
+                            <Button Content="Suspected loggers" Height="26" HorizontalAlignment="Center" Margin="5" Name="Button_suspectedLoggers" VerticalAlignment="Top" Width="120" ToolTip="Displays ranking or loggers by headloss change to define suspected area" IsEnabled="False" Style="{StaticResource RoundedButton}" Background="#FF933737" BorderBrush="#FFC54743" Foreground="White" FontWeight="Bold" Click="Button_suspectedLoggers_Click" />
+                            <Label Content="Max number of bursts" Height="28" Name="label1" Width="122" />
+                            <!--Change Attribute from isReadOnly to False-->
+                            <TextBox Height="23" Name="textBox_maxNBursts" Width="120" Text="{Binding max_n_bursts}" TextAlignment="Center" IsReadOnly="False" />
+                            <Button Content="Localise Burst" Height="26" HorizontalAlignment="Center" Margin="5" Name="button_LocalizeBurst" VerticalAlignment="Top" Width="120" Click="button_LocalizeBurst_Click" IsEnabled="False" ToolTip="Perform series of simulations with burst allocated to selected nodes and compared headloss changes with measurements" Style="{StaticResource RoundedButton}" Foreground="White" BorderBrush="#FFC54743" Background="#FF933737" FontWeight="Bold" />
+                            <CheckBox Content="Show loggers" Height="16" HorizontalAlignment="Center" Margin="5" Name="checkbox_loggerNetworkVisibility" VerticalAlignment="Top" Width="96" Checked="loggerNetworkVisibility_Checked" IsEnabled="True" Unchecked="loggerNetworkVisibility_Unchecked" />
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Grid.Row="2" Grid.Column="0" 
+                              Header="Inlet set selection" BorderBrush="#FF2A3A56">
+                        <StackPanel ClipToBounds="True" VerticalAlignment="Top">
+                            <ComboBox VerticalAlignment="Stretch" Name="inletSetSelectionComboBox" HorizontalAlignment="Stretch" IsEnabled="False" SelectionChanged="inletSetSelectionComboBox_SelectionChanged" IsTextSearchEnabled="True" ToolTip="Select set of inlets to use for calculations">
+                            </ComboBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox  Grid.Row="3" Grid.Column="0" Header="Burst flow estimation" BorderBrush="#FF2A3A56">
+                        <Grid Name="burstFlowEstimationGrid" VerticalAlignment="Top">
+                            <Grid.RowDefinitions>
+                                <!--<RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>-->
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <!--<ColumnDefinition/>
+                            <ColumnDefinition/>-->
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </GroupBox>
+                    <Grid Grid.Row="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="0" Content="ESTIMATE" HorizontalAlignment="Center" Name="estimateButton" Click="estimateButton_Click" VerticalAlignment="Top" IsEnabled="False" Style="{StaticResource RoundedButton}" Background="#FF933737" BorderBrush="#FFC54743" Foreground="White" FontWeight="Bold" Width="120" Height="30">
+                        </Button>
+                        <!--<Button Grid.Row="1" Content="ButtonEst1" HorizontalAlignment="Center" VerticalAlignment="Top" Name="ButtonEst1"> 
+                        </Button>
+                        <Button Grid.Row="2" Content="ButtonEst2" HorizontalAlignment="Center" VerticalAlignment="Top" Name="ButtonEst2">
+                        </Button>-->
+                    </Grid>
+                </Grid>
+                <GridSplitter Width="3" Grid.Column="2" HorizontalAlignment="Left" Grid.RowSpan="3" BorderBrush="#FF293955" />
+            </Grid>
+            <!--<Grid Name="layer2">
+                <Grid.RowDefinitions></Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition SharedSizeGroup="column2" Width="auto" />
+                </Grid.ColumnDefinitions>
+    
+            </Grid>
+            <Grid Name="layer1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="632*" />
+                    <ColumnDefinition SharedSizeGroup="column1" Width="124" />
+                </Grid.ColumnDefinitions>
+              
+            </Grid>-->
+
+        </Grid>
+    </DockPanel>
+
+</Window>

@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Styx.UserControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:Styx"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="500">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+       
+        <TextBlock Grid.Row="0" TextAlignment="Center">Paths</TextBlock>        
+            <controls:TreeViewMultiSelect Grid.Row="1" x:Name="treeView1" SelectedItemChanged="treeView1_SelectedItemChanged">
+                <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=Nodes}">
+                    <TextBlock Text="{Binding Path=Name}" />
+                </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </controls:TreeViewMultiSelect>                 
+
+
+        <Button Grid.Row="2" Click="button1_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="closeButton">Close</Button>
+
+        <TextBlock Grid.Row="3" TextAlignment="Center">Ctrl+Click To select multiple paths</TextBlock>
+    </Grid>
+</UserControl>

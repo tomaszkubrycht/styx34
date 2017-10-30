@@ -1,0 +1,9 @@
+﻿<Window x:Class="Styx.ProgressWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="" Height="203" Width="465" Background="CornflowerBlue" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" FontSize="14" Topmost="True" Closing="Window_Closing">
+    <Grid>
+        <TextBlock Height="58" HorizontalAlignment="Left" Margin="5,8,0,0" Name="textBlock_message" Text="TextBlock" VerticalAlignment="Top" Width="434" TextWrapping="WrapWithOverflow" />
+        <ProgressBar Height="29" HorizontalAlignment="Left" Margin="4,132,0,0" Name="progressBar1" VerticalAlignment="Top" Width="435" Value="0" />
+    </Grid>
+</Window>

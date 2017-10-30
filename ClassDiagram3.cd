@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Styx.AnalysisMeasurementAndSimulation">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AnalysisMeasurementAndSimulation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.ArrayProcessing" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AnalysisMeasurementAndSimulation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Node" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAgQAAEEAYgsCQAARAAAAFBADAIAAJBIBAICA=</HashCode>
+      <FileName>AnalysisMeasurementAndSimulation.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Styx.Link" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAAAEAAAARABCAEEAAAAACAAAFBEGAAAAIAEAIQAA=</HashCode>
+      <FileName>AnalysisMeasurementAndSimulation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.WaterNetwork" Collapsed="true">
+    <Position X="9.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAhSACEAwAKQgAAAgADkAgAIQsAAgIgIAQgQAMBhAAg=</HashCode>
+      <FileName>AnalysisMeasurementAndSimulation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.NodeNeighbour" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAEEAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>AnalysisMeasurementAndSimulation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.FlowTree" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAQABAAAAAAAAAAAAAAAAAAAAAAEQAAIACAAACAAAA=</HashCode>
+      <FileName>AnalysisMeasurementAndSimulation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.LoggerConnections" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAJEDQAAAAQAgAACAgAAgAAAAAIAACUAAICAAAABI=</HashCode>
+      <FileName>AnalysisMeasurementAndSimulation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.BurstCoeffs" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAABAAAAAgAAAAAEAAAAAAAAAhAAAAAIAA=</HashCode>
+      <FileName>AnalysisMeasurementAndSimulation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.BurstCoeffEstimator" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAEAAgAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>AnalysisMeasurementAndSimulation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.BurstLocator" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAgAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>AnalysisMeasurementAndSimulation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Constants" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CJAlCbCohKziawRhhhIEgJC2SoaZNkrDCGgAuyHARBQ=</HashCode>
+      <FileName>Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Error" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAQAAAAAA=</HashCode>
+      <FileName>Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.EpanetError" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.AdvancedOptions" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAGAAAAAAAEAAAgAAAEAAEAAAACAAAAAAgAAAA=</HashCode>
+      <FileName>Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.EFavorTest" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAAACBAUAAAAAECAQAAAAAABAAAAAACAAAARBA=</HashCode>
+      <FileName>EFavorTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.FlowMeter" Collapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAQAABAAAAAAAAAIAAAAAAAEAAAAAAAAABAAA=</HashCode>
+      <FileName>EFavorTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Logger" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAgAAABAAAEAEAAAAgA=</HashCode>
+      <FileName>EFavorTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Epanet" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QCAIAIZAYRoAYAVBMAAYACACASIAQEQIRggMIIIBCHI=</HashCode>
+      <FileName>Epanet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.LoggerLocWindow" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABBBQwAARAAAhEAAAABAAICAAAIqAAAEEQ=</HashCode>
+      <FileName>LoggerLocWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.LoggerPaths" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAACAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>LoggerPaths.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.MainWindow" Collapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QGAACxOAhiFFAECFFASZiY0xBChLMoDGQMYIogAO4lA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Methodology" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Methodology.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Options" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAACAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Options.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.PathsWindow" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAQAAAAAAAAAAAAAAIAAAAABA=</HashCode>
+      <FileName>PathsWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.ProgressWindow" Collapsed="true">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABCAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProgressWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.TestToDeleteLater" Collapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TestToDeleteLater.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.TreeViewItemMultiSelect" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAIAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>TreeViewItemMultiSelect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.TreeViewMultiSelect" Collapsed="true">
+    <Position X="2.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAACBIMAAhCAAAAAgAAAAAAAAAAIAAEAQwAAgQAoAQ=</HashCode>
+      <FileName>TreeViewMultiSelect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.UserControl1" Collapsed="true">
+    <Position X="4" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>UserControl1.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.SubNode" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgIAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserControl1.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.WDS" Collapsed="true">
+    <Position X="11" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WDS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Pump" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>WDS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Valve" Collapsed="true">
+    <Position X="7.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>WDS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Reservoir" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WDS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Tank" Collapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQACAAAAAAAAAAAAAIAAAAAAAABAAAEBAAAAQAAAAAQ=</HashCode>
+      <FileName>WDS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Pattern" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAEACAAAAAAAAAAAAA=</HashCode>
+      <FileName>WDS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Curve" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAFAAAAAABgAAAAAAA=</HashCode>
+      <FileName>WDS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Controls" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAABAAAAAAAAAABAAAAFAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WDS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.WindowLoggerTotalD2H" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>WindowLoggerTotalD2H.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.WindowTemp" Collapsed="true">
+    <Position X="2.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WindowTemp.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.WindowTest" Collapsed="true">
+    <Position X="4" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIEAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>WindowTest.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Properties.Resources" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAkABAAAIAAAQEAABABUAAAAQAAGBAAICCAAAAAAYk=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Properties.Settings" Collapsed="true">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAQAAAAgGIAAQQAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Styx.Properties.UserInterface" Collapsed="true">
+    <Position X="5.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gwAAAQAAAEAAgAoUhABBsAIAAAApIARAIBCAg+ICDkI=</HashCode>
+      <FileName>Properties\UserInterface.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,19 @@
+﻿<Window x:Class="Styx.PathsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:multiSelectionTree="clr-namespace:MultiSelectionTreeView;assembly=MultiSelectionTreeView"
+        xmlns:myTreeView="clr-namespace:Styx"
+        Title="Paths in logger connections" Height="400" Width="300" Closing="Window_Closing" Name="pathsWindow" Icon="/Styx;component/Icons/water.png">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>               
+        </Grid.RowDefinitions>
+      
+        <myTreeView:UserControl1 x:Name="multiSelectTreeView"></myTreeView:UserControl1>
+        
+
+    </Grid>
+</Window>

@@ -1,0 +1,26 @@
+﻿<Window x:Class="Styx.WindowLoggerTotalD2H"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="Suspected loggers" Height="500" Width="330" Icon="/Styx;component/Icons/water.png">
+    <Grid Background="#FF9CAAC1" Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <!--Must be defined other than auto to scroll data-->
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="0" Text="Total head-loss change from the inlet to each logger" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Border Grid.Row="1" BorderThickness="2">
+
+            <DataGrid AutoGenerateColumns="False" Height="Auto" HorizontalAlignment="Stretch" Name="dataGrid1" VerticalAlignment="Stretch" Width="Auto" SelectionChanged="dataGrid1_SelectionChanged" Background="{Binding ElementName=mainGrid, Path=Background}" MinWidth="100" MinHeight="200" IsReadOnly="True">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Logger" Binding="{Binding Path=Item1}"/>
+                    <DataGridTextColumn Header="Head-loss change [m]" Binding="{Binding Path=Item2, StringFormat=f3}" />
+                    <DataGridTextColumn Header="Head-loss change [%]" Binding="{Binding Path=Item3, StringFormat=f3}" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Border>
+    </Grid>
+</Window>
