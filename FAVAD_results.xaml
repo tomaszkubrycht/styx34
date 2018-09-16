@@ -1,0 +1,13 @@
+﻿<Window x:Class="Styx.FAVAD_results"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Styx"
+        mc:Ignorable="d"
+        Title="FAVAD_results" Height="450" Width="800">
+    <Grid>
+        <Grid HorizontalAlignment="Left" Height="335" Margin="37,43,0,0" VerticalAlignment="Top" Width="719"/>
+
+    </Grid>
+</Window>

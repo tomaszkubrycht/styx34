@@ -1,0 +1,35 @@
+﻿<Window x:Class="Styx.czart"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Styx"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        
+        mc:Ignorable="d"
+        Title="Burst estimation results" Height="450" Width="800">
+
+    <Grid>
+        <Grid>
+            <oxy:PlotView Model="{Binding Model}" Margin="0,20,0.333,139.667"/>
+        </Grid>
+        <Grid>
+
+            <Grid x:Name="FavadResultsGrid" Height="107" Margin="10,10,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="773">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+
+            </Grid>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="0" Margin="380,0,0,0" VerticalAlignment="Top" Width="18"/>
+        <Button x:Name="Save_as_PDF" Content="Save as Pdf" Margin="0,0,31.333,28.667" Click="Print_Click" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom"/>
+
+
+    </Grid>
+
+</Window>

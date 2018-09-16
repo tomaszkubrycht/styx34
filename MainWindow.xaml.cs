@@ -67,10 +67,11 @@ namespace Styx
         public WaterNetwork pathsNetwork = new WaterNetwork();///to store the selected paths of logger connection
         Epanet epanet; ///object to manipulate epanet files, simulate network and operate epanet tooltik
         Constants constants = new Constants();///to get predefined graphical attributes
-       
+
         /// <summary>
         /// Engine variables
         /// </summary>
+        public Favad Favad; //object containing all information about favad methods;
         public EFavorTest efavorTest; ///object containing all information and data from the field experiment (E-FAVOR)
         public LoggerConnections loggerConnections; ///object with all info related to loggers and their connections; include network 'skeletonization' methods
         private int _max_n_bursts; ///maximum number of bursts in the GA algorithm searching for bursts
@@ -2204,6 +2205,7 @@ namespace Styx
 
         private void Button_loadEfavor_Click(object sender, RoutedEventArgs e)
         {
+
             OpenFileDialog file_dialog = new OpenFileDialog();
             //file_dialog.InitialDirectory = Settings.Default.path;
             file_dialog.Title = "Load E-Favor experiment data from Excel file";
@@ -2220,7 +2222,7 @@ namespace Styx
                 //    throw new Exception("Error while analysing node neighbours!");
                 //error = waterNetwork.GenerateHigherLevelNeighbours(AdvancedOptions.max_higher_level_neighbours);
                 //if (error < 0)
-                //    throw new Exception("Error while analysing higher level node neighbours!");
+                //    throw new Exception("Error  while analysing higher level node neighbours!");
                 efavorTest = new EFavorTest();
                 error = efavorTest.LoadEFavorData(file_dialog.FileName, waterNetwork);
                 if (error < 0)
@@ -2454,12 +2456,16 @@ namespace Styx
             {
                 int ret_val;
                 BurstCoeffEstimator burstCoeffEst = new BurstCoeffEstimator();
-                ret_val = burstCoeffEst.InitialiseCoeffs(efavorTest, 70);
+                Favad1 favad1 = new Favad1();
+                ret_val = burstCoeffEst.InitialiseCoeffs(efavorTest, 70,waterNetwork);
                 if (ret_val < 0)
                     throw new Exception("Error while initialising burst coefficients");
                 ret_val = burstCoeffEst.EstimateBurstFromLoggers_2Term(epanet, waterNetwork, efavorTest, AdvancedOptions.lsqr_estimation_tolerance, AdvancedOptions.lsqr_estimation_iterations, AdvancedOptions.max_diff_from_min_chi2_percent, AdvancedOptions.max_no_min_chi2);
                 if (ret_val < 0)
                     throw new Exception("Error while estimating burst coefficients");
+                ret_val = favad1.GenFAVADOutput(waterNetwork, efavorTest,burstCoeffEst.coeffs);
+                if (ret_val < 0)
+                    throw new Exception("Error while estimating Favad parameters");
 
                 //update textbox values
                 int counter = 0;
@@ -2624,8 +2630,10 @@ namespace Styx
 
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
 
- 
-
-	}
+        
+        }
+    }
 }

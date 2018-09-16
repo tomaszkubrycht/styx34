@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\PHD\Styx\Styx\obj\x86\Release\
+C:\dane_do_phd\PHD\Styx1\styx\obj\x86\Release\
 Styx
 none
 false
 TRACE
-C:\PHD\Styx\Styx\App.xaml
+C:\dane_do_phd\PHD\Styx1\styx\App.xaml
 121529943921
 
 25-1857649198
-21-538411240
+21-285739586
 Methodology.xaml;LoggerLocWindow.xaml;MainWindow.xaml;Options.xaml;PathsWindow.xaml;ProgressWindow.xaml;RoundedButton.xaml;TestToDeleteLater.xaml;UserControl1.xaml;WindowLoggerTotalD2H.xaml;WindowTemp.xaml;WindowTest.xaml;
 
 True

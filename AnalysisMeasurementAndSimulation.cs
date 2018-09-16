@@ -11,6 +11,7 @@ using System.ComponentModel;
 using UI = Styx.Properties.UserInterface;
 
 
+
 namespace Styx
 {
     public class AnalysisMeasurementAndSimulation
@@ -31,7 +32,7 @@ namespace Styx
         }
 
     }
-
+    
     public partial class Node : IEquatable<Node>///additional fields in class Node required for analysis
     {        
         public bool isLogger { set; get; } ///true if this node is actually a logger node, used for display/selection
@@ -1439,6 +1440,7 @@ namespace Styx
             /// <param name="burst_exponent"></param>
             public BurstCoeffs(double demand, double burst_coeff, double burst_exponent)
             {
+
                 est_demand = demand;
                 est_burst_coeff = burst_coeff;
                 est_burst_exponent = burst_exponent;
@@ -1566,7 +1568,7 @@ namespace Styx
         /// <param name="leak_percentage">what percent of minimum night flow is leakage; specify as percentage (0-100)</param>
         /// <returns>0 if successful</returns>
         /// <returns>-1 if exception thrown</returns>
-        public int InitialiseCoeffs(EFavorTest efavorTest, double leak_percentage)
+        public int InitialiseCoeffs(EFavorTest efavorTest, double leak_percentage, WaterNetwork waterNetwork_tk)
         {
             try
             {
@@ -1579,16 +1581,31 @@ namespace Styx
                         flowData[i] += flowmeter.measured_flow[i];
                     }
                 }
-
+                double[] results = { };
+                Favad test = new Favad();
+                var T_inlets_nodes = test.FInlet(efavorTest);
+                List<double> flow_list = new List<double>();
+                foreach (var item in efavorTest.list_of_inlet_flowmeters)
+                {
+                    flow_list=item.measured_flow.ToList();
+                }
+                
                 double min_flow = flowData.Min();
                 int min_flow_index = flowData.ToList().FindIndex(tmp => tmp == min_flow);
                 double avg_pressure = 0;
+                List<double> presure_list = new List<double>();
                 foreach (Logger logger in efavorTest.list_of_loggers)
                 {
                     avg_pressure += logger.measured_pressure[min_flow_index];
                 }
+                
                 avg_pressure = avg_pressure / efavorTest.no_of_loggers;
+                List<double> average_pressure = new List<double>();
+                var no_steps = efavorTest.list_of_loggers[0].measured_pressure.Count();
 
+                var demand_favad=test.Get_minDemand(waterNetwork_tk);          
+                
+                
                 double alpha = 0.6; //for initial guess assume 0.6
                 double demand = (100 - leak_percentage) / 100 * min_flow; //for initial guess assume that (100-leak_percentage)% of minimum night flow is demand
                 double k = (leak_percentage / 100) * min_flow / Math.Pow(avg_pressure, alpha);
@@ -1612,19 +1629,31 @@ namespace Styx
             coeffs = new BurstCoeffs(demand, burst_coeff, burst_exponent);
             return (0);
         }
-
+        //TK addings
+        //initialisation "Lambert" cooefitients for estimation 
+        /// <param name="demand"></param>
+        /// <param name="burst_coeff"></param>
+        /// <param name="leakage_coeff"></param>
+        public int InitialiseCoeffs_Lambert(double demand, double burst_coeff, double leakage_coeff)
+        {
+            coeffs = new BurstCoeffs(demand, burst_coeff, leakage_coeff);
+            return (0);
+        }
+        
         /// <summary> Estimates 2 term inlet flow model coefficients; i.e. no background leakage: q=d+k*p^alpha
         /// </summary>
         /// <param name="pressure_data"></param>
         /// <param name="flow_data"></param>
         /// <param name="tolerance_percent">stop regression iterations when average normalized error (in %) of estimated model is smaller than tolerance </param>
         /// <param name="max_iter">maximum number of iterations of the regression algorithms</param>
+        /// 
         /// <returns>0 if successful</returns>
         /// <returns>-1 if inconsistent data length</returns>
         /// <returns>-2 if data set too short</returns>
         /// <returns>-3 if negative pressure</returns>
         /// <returns>-4 if coeffs not initialised</returns>
         /// <returns>-20 if other exception thrown</returns>
+
         public int Estimate2TermModelCoeffs(double[] pressure_data, double[] flow_data, double tolerance_percent, int max_iter)
         {
             try
@@ -1735,8 +1764,8 @@ namespace Styx
 
                 if (coeffs == null) //if coefficients have not been initialised use efavor test data and assume burst is 70% of MNF
                 {
-                    InitialiseCoeffs(efavorTest, 70);
-                    MessageBox.Show("Initial estimates for burst flow not provided, so it's assumed to be 70% of minimum night flow");
+                    InitialiseCoeffs(efavorTest, 70, waterNetwork);
+                   
                 }
                 int nDataPoints = efavorTest.total_no_of_pressure_steps;
                 if (nDataPoints < 3)
@@ -1772,12 +1801,14 @@ namespace Styx
                     {
                         chi2_array[i] = double.PositiveInfinity;
                         continue;
+
                     }
                     //store just calculated coefficients in the list
                     coeffs_list[i].est_demand = coeffs.est_demand;
                     coeffs_list[i].est_burst_flow = coeffs.est_burst_flow;
                     coeffs_list[i].est_burst_coeff = coeffs.est_burst_coeff;
                     coeffs_list[i].est_burst_exponent = coeffs.est_burst_exponent;
+
 
                     //set emitter, simulate network, set emitter back to original value
                     float originalEmitterCoeff = efavorTest.list_of_loggers[i].node.emmitterCoefficient;
@@ -1822,7 +1853,81 @@ namespace Styx
                 return (-20);
             }
             return (0);
-        }        
+        }
+        public int Estimate3TermModelCoeffs(double[] pressure_data, double[] flow_data, double tolerance_percent, int max_iter)
+        {
+            try
+            {
+                if (pressure_data.Length != flow_data.Length)
+                {
+                    MessageBox.Show("Length of pressure and flow data are not equal");
+                    return (-1);
+                }
+                int nDataPoints = pressure_data.Length;
+                if (nDataPoints < 3)
+                {
+                    MessageBox.Show("Data set too short. At least 3 measurements are required to estimate 3 coefficients of inlet flow model");
+                    return (-2);
+                }
+                if (pressure_data.Any(tmp => tmp < 0)) //check if all pressure is positive
+                {
+                    MessageBox.Show("Negative pressure data given to estimate burst");
+                    return (-3);
+                }
+                if (coeffs == null)
+                {
+                    MessageBox.Show("Initial guess for burst coefficients not given");
+                    return (-4);
+                }
+
+                double[,] all_data = new double[2, nDataPoints];
+                for (int i = 0; i < nDataPoints; i++)
+                {
+                    all_data[0, i] = pressure_data[i];
+                    all_data[1, i] = flow_data[i];
+                }
+
+                Parameter d = new Parameter(coeffs.est_demand);
+                Parameter k = new Parameter(coeffs.est_burst_coeff);
+                Parameter k_2 = new Parameter(coeffs.est_burst_exponent);
+                Parameter p = new Parameter();
+                Parameter q = new Parameter();
+
+                Func<double> regressionFunction = () => (d + k * Math.Pow(p, 1.5)+k_2*Math.Pow(p,0.5));
+                Parameter[] regressionParameters = new Parameter[] { d, k, k_2 };
+                Parameter[] observedParameters = new Parameter[] { p };
+                LevenbergMarquardt regression_object = new LevenbergMarquardt(regressionFunction, regressionParameters, observedParameters, all_data);
+
+                for (int i = 0; i < max_iter; i++)
+                {
+                    regression_object.Iterate();
+                    double error = 0;
+                    for (int j = 0; j < nDataPoints; j++)
+                    {
+                        error += Math.Abs(d.Value + k.Value * Math.Pow(pressure_data[j], k_2.Value) - flow_data[j]) / flow_data[j]; //relative error
+                    }
+                    error = error / nDataPoints * 100; //multiply by 100 to obtain percentage
+                    if (error < tolerance_percent)
+                        break;
+                }
+
+                coeffs.est_demand = d.Value;
+                coeffs.est_burst_coeff = k.Value;
+                coeffs.est_burst_exponent = k_2.Value;
+                coeffs.est_burst_flow = new double[nDataPoints];
+                for (int i = 0; i < nDataPoints; i++)
+                {
+                    coeffs.est_burst_flow[i] = flow_data[i] - coeffs.est_demand;
+                }
+
+            }//try
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return (-20);
+            }
+            return (0);
+        }//were add more advanced power low
     }
 
     /// <summary>Class to find burst location by running series of simulations and  
@@ -1925,6 +2030,7 @@ namespace Styx
             try
             {
                 int ret_val;
+                
                 List<BurstCoeffs> listBurstCoeff = new List<BurstCoeffs>();
                 listBurstCoeff.Add(burstCoeffs);
                 WaterNetwork waterNetwork = loggerConnection.flow_tree.water_network; //retrieve WaterNetwork object from loggerConnection
@@ -1975,6 +2081,7 @@ namespace Styx
                 return (-20);
             }
         }
+        
     }
 
 }

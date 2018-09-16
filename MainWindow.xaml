@@ -192,20 +192,7 @@
                         </StackPanel>
                     </GroupBox>
                     <GroupBox  Grid.Row="3" Grid.Column="0" Header="Burst flow estimation" BorderBrush="#FF2A3A56">
-                        <Grid Name="burstFlowEstimationGrid" VerticalAlignment="Top">
-                            <Grid.RowDefinitions>
-                                <!--<RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>-->
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <!--<ColumnDefinition/>
-                            <ColumnDefinition/>-->
-                            </Grid.ColumnDefinitions>
-                        </Grid>
+                        <Grid x:Name="burstFlowEstimationGrid" HorizontalAlignment="Left" Height="138" Margin="10,10,0,0" VerticalAlignment="Top" Width="157"/>
                     </GroupBox>
                     <Grid Grid.Row="4">
                         <Grid.RowDefinitions>
@@ -219,6 +206,7 @@
                         <Button Grid.Row="2" Content="ButtonEst2" HorizontalAlignment="Center" VerticalAlignment="Top" Name="ButtonEst2">
                         </Button>-->
                     </Grid>
+                    <Button Content="Button" HorizontalAlignment="Left" Margin="56,178.333,0,0" Grid.Row="3" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
                 </Grid>
                 <GridSplitter Width="3" Grid.Column="2" HorizontalAlignment="Left" Grid.RowSpan="3" BorderBrush="#FF293955" />
             </Grid>
