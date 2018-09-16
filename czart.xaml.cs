@@ -147,7 +147,7 @@ namespace Styx
             Grid.SetColumn(favad_diff, 4);
             Grid.SetRow(favad_diff, 1);
             FavadResultsGrid.Children.Add(favad_diff);
-            
+            //test
             TextBlock column5Header = new TextBlock();
             column5Header.Text = "Mean difference Skoworcow";
             column5Header.Height = hig;
